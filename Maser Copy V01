@@ -4879,6 +4879,421 @@ catch (Exception e)
 		return false;
 }
 
+public static boolean ContractSupportNewGroup(By element,String data)
+{
+	
+	try
+	{
+
+		
+		
+		// WebDriverWait waitUntil = new WebDriverWait(driver, 60); 
+		
+		String spec = data.split("\\__")[0];
+		WebElement path;
+		
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		  //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/a[text()='Generate SCF']")));
+		Thread.sleep(10000);
+		//KeywordsCoreFunctions.click(By.xpath("//div/a[text()='Generate SCF']"));
+		//Thread.sleep(5000);
+		//KeywordsCoreFunctions.selectbyValue(By.xpath("//span[contains(text(),'Case Item')]/following::Select"),"Self Serve Mutual NDA");
+
+		//Thread.sleep(3000);
+		
+		
+		
+			
+		Workbook workbook = null;
+		
+			workbook = Workbook.getWorkbook(new File("D:\\SWIFTCopy\\eTAP_V1.04\\Specifications.xls"));
+		
+		Sheet firstSheet = workbook.getSheet(0); 
+		Sheet secSheet = workbook.getSheet(1); 
+		int rows=firstSheet.getRows();
+		int cols=firstSheet.getColumns();
+		int rows1=secSheet.getRows();
+		int cols1=secSheet.getColumns();
+		
+		  
+		 for(int i=1;i<rows;i++)
+		   {
+			 String specification = firstSheet.getCell(0, i).getContents().trim();
+			 
+			 if(specification.trim().equalsIgnoreCase(spec.trim()))
+			 {
+				 System.out.println(specification);
+				 Thread.sleep(10000);
+				 
+				 //waitUntil.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[text()='Loading...']"))); 
+				
+				 boolean result = true;
+				 for(int j=1;j<cols;j++)
+				 {
+					 
+					 String charc = firstSheet.getCell(j, i).getContents();
+					 
+					 String value = secSheet.getCell(j, i).getContents();
+					 if(charc.equals("") == false)
+					 {String char_xpath ="";
+					 try{
+						 JavascriptExecutor js = (JavascriptExecutor)driver;
+					switch (charc) {
+					
+					case "PhoneNumber":
+						 
+						path = driver.findElement(By.xpath("//span[contains(text(),'Full Name:')]/following::input[@type='text'][4]"));
+						  
+					    js.executeScript("arguments[0].setAttribute('value', '" +value+"')", path);
+					break;
+					
+					case "TotalContractValue":
+						 
+						path = driver.findElement(By.xpath("//div/span[contains(text(),'Total Contract Value')]/following::input[1]"));
+						  
+					    js.executeScript("arguments[0].setAttribute('value', '" +value+"')", path);
+					break;
+					
+					case "Sector":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Sales Sector:')]/following::a[1]"));
+						Thread.sleep(3000);
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					
+					case "BusinessChannel":
+						Thread.sleep(6000);
+						
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Business Channel:')]/following::a[1]"));
+					  	Thread.sleep(3000);
+					  	KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					break;
+					
+					case "AccountRegion":
+						
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Region:')]/following::a[1]"));
+					  	Thread.sleep(3000);
+					  	KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					break;
+					
+					case "ApprovalStatus":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Approval Status:')]/following::a[1]"));
+					  	Thread.sleep(3000);
+					  	KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					  	break;
+					  	
+					case "Role":
+						 
+						path = driver.findElement(By.xpath("//span[contains(text(),'Role')]/following::input[@type='text'][1]"));
+						  
+					    js.executeScript("arguments[0].setAttribute('value', '" +value+"')", path);
+					break;
+				  	
+					case "OppLeadFunction":
+						Thread.sleep(6000);
+						
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Opportunity Lead Function:')]/following::button[1]"));
+					  	Thread.sleep(3000);
+					  	KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					break;
+					
+					case "TopLevelCustomerName":
+						Thread.sleep(6000);
+						
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Top Level Customer Name:')]/following::button[1]"));
+					  	Thread.sleep(3000);
+					  	KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					break;
+					
+					case "GAN":
+						Thread.sleep(6000);
+						
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'(GAN):')]/following::button[1]"));
+					  	Thread.sleep(3000);
+					  	KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					break;
+					
+					case "OppType":
+						Thread.sleep(6000);
+						
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Opportunity Type:')]/following::button[1]"));
+					  	Thread.sleep(3000);
+					  	KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					break;
+					
+					case "OppRefID":
+						 
+						path = driver.findElement(By.xpath("//span[contains(text(),'Opportunity Reference ID')]/following::input[@type='text'][1]"));
+						  
+					    js.executeScript("arguments[0].setAttribute('value', '" +value+"')", path);
+					break;
+					
+					case "1SFOrgID":
+						 
+						path = driver.findElement(By.xpath("//span[contains(text(),'1SF Org ID')]/following::input[@type='text'][1]"));
+						  
+					    js.executeScript("arguments[0].setAttribute('value', '" +value+"')", path);
+					break;
+					
+					case "BidTier":
+						Thread.sleep(6000);
+						
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Bid Tier:')]/following::a[1]"));
+					  	Thread.sleep(3000);
+					  	KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+					break;
+					
+					case "ExistingContract":
+						
+						
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Existing Contract:')]/following::button[1]"));
+						Thread.sleep(3000);
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+					  	
+					case "DocumentType":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Document Type:')]/following::button[1]"));
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+					
+					case "FullName":
+						
+						driver.findElement(By.xpath("//span[contains(text(),'Full Name:')]/following::input[@type='text'][1]")).clear();
+						driver.findElement(By.xpath("//span[contains(text(),'Full Name:')]/following::input[@type='text'][1]")).sendKeys(value);
+					break;
+					
+					case "NegotiateCountry":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Negotiation Country:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+					
+					case "NegotiateLanguage":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Negotiation Language:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "Territory":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Territory(ies):')]/following::button[1]"));
+						Thread.sleep(4000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li/div/span[contains(text(),'"+value+"')]/preceding::input[1]")));
+						KeywordsCoreFunctions.click(By.xpath("//li/div/span[contains(text(),'"+value+"')]/preceding::input[1]"));
+						break;
+						
+					case "TermsUsed":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Terms Used:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "ICCScope":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'ICCs In Scope:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "GoverningLaw":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Governing Law:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "PublicandProvateSector":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Public or Private Sector:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "VFEntity":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Vodafone Contracting Entity 1:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "CompanyName":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Registered Company Number 1:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+							
+					case "CompRegAddress":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Vodafone Registered Address 1:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "IntialTerm":
+						 
+						path = driver.findElement(By.xpath("//span[contains(text(),'Initial Term')]/following::input[@type='text'][1]"));
+						  
+					    js.executeScript("arguments[0].setAttribute('value', '" +value+"')", path);
+					break;
+					
+					case "EffectiveDate":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Effective Date:')]/following::button[1]"));
+						Thread.sleep(3000);
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "CommencmentDate":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Service Commencement Date:')]/following::button[1]"));
+						Thread.sleep(3000);
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "BenchMarking":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Benchmarking:')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						Thread.sleep(3000);
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+					
+					case "PaymentTerms":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Payment Terms (days):')]/following::button[1]"));
+						Thread.sleep(3000);
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+					case "OffTeritory":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Off-Footprint Territory(ies)')]/following::button[1]"));
+						Thread.sleep(3000);
+						wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'"+value+"')]")));
+						KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+						break;
+						
+						
+						
+					case "FurtherDetail":
+                      try{
+							
+							KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Provide further details relevant to your request:')]/following::textarea"));
+							WebElement PT1= driver.findElement(By.xpath("//span[contains(text(),'Provide further details relevant to your request:')]/following::textarea"));
+							
+							js.executeScript("arguments[0].scrollIntoView();", PT1);
+							if(KeywordsCoreFunctions.type(By.xpath("//span[contains(text(),'Provide further details relevant to your request:')]/following::textarea"), value));
+							{
+								
+								System.out.println("In IF");
+								
+						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+					}
+							
+							
+							}catch (Exception e)
+							{
+								System.out.println(e);
+								WebElement PT2= driver.findElement(By.xpath("//span[contains(text(),'Provide further details relevant to your request:')]/following::textarea"));
+								
+						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT2);
+							}
+                      break;
+
+					case "Next":
+						 
+						KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
+	                  	Thread.sleep(10000);
+						break;
+                      
+
+										
+					
+						
+							default:
+						result = false;
+						break;
+					}
+					
+					
+					 }
+					 
+						catch (Exception e) {
+							System.out.println("Error message:"+charc+" "+e);
+							result = false;
+						}
+					 
+					 }
+					 else{
+						 System.out.println("CDone with entering");
+						 
+							break;
+						 
+					 }
+					 
+				 }
+					 if(result)
+						{
+						
+								System.out.println("Capturing Result");
+								
+								KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
+								
+								Thread.sleep(5000);
+								//KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
+								//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/a[text()='Preview']")));
+								//KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
+								//WebElement submit=driver.findElement(By.xpath("//input[@type='submit']"));
+								//submit.click();
+								
+								return true;
+							
+								
+							
+						}
+						else
+						{
+							System.out.println("Some problem in entering Characteristics");
+							return false;
+						} 
+				 
+		   }
+				 
+			 }
+						 
+		
+					 
+			 }
+			
+		   
+		
+catch (Exception e)
+	{
+		
+		System.out.println("Error during executing Keyword: SelectSpecifications\n");
+		e.printStackTrace(System.out);
+		return false;
+}
+		return false;
+}
+
 public static boolean ContractSupportNewUK(By element,String data)
 {
 	
