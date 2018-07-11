@@ -1648,14 +1648,20 @@ driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Filepath4);
     }
    
 
-    public static boolean RSMultipleTemplate(By element,String data)
+    public static boolean RSMultipleTemplateFrontDoor(By element,String data)
     {
 		
 		try{
 			
-			Workbook wrk1 =  Workbook.getWorkbook(new File("D:\\SWIFTCopy\\eTAP_V1.04\\MultipleCasesRS.xls"));
+			Workbook wrk1 =  Workbook.getWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\MultipleCasesRS.xls"));
 			 Sheet sheet1 = wrk1.getSheet(data);
 			 int rows=sheet1.getRows();
+			 WritableWorkbook wworkbook;
+			 wworkbook = Workbook.createWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\CaseReferRS.xls"));
+			 WritableSheet wsheet = wworkbook.createSheet(data, 0);
+			 Label label = new Label(0, 0, "ReferID");
+			 wsheet.addCell(label);
+			 WebElement elem = null;
 				for(int j=0;j<rows-1;j++)
 				{
 					 String ShortRef = sheet1.getCell(0, j+1).getContents().trim();
@@ -1670,7 +1676,6 @@ driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Filepath4);
 					 String comb = (ShortRef+"__"+ReqTyp);
 					 String comb1 = (field+"__"+ShortRef);
 					 String comb2 = (RepAcc+"__"+RepTemp+"__"+ReferID);
-					 WebElement elem = null;
 					 Thread.sleep(10000);
 					 EnterComplaint((By) elem, comb);
 					 Thread.sleep(10000);
@@ -1686,60 +1691,14 @@ driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Filepath4);
 					 WebElement elem1 = driver.findElement(By.xpath(".//*[@id='MainContent_wsCards1_dlCards_divCaseNumber_0']"));
 					 String CasRefer=elem1.getText();
 				        System.out.println(CasRefer);
+				        Label label1 = new Label(0, 1+j, CasRefer);
+						 wsheet.addCell(label1);
 						 Thread.sleep(10000);
-						 KeywordsCoreFunctions.click(By.xpath("//a[text()='VIEW']"));
-						 Thread.sleep(10000);
-						 CaseContractLegal((By) elem, comb);
-						 Thread.sleep(10000);
-						 switch(data)
-						 {
-						 case "Group Enterprise Legal Request":KeywordsCoreFunctions.click(By.xpath("//a[text()='Contract Fully Signed']"));
-						                                       Thread.sleep(3000);
-						                                       KeywordsCoreFunctions.click(By.xpath("//a[text()='Submit']"));
-						                                       Thread.sleep(10000); 
-							                                   AddSCFDetails1((By) elem, scf);
-						                                        break;
-						 
-						 case "UK Enterprise Legal Request": KeywordsCoreFunctions.click(By.xpath("//a[text()='In Signature - Wet Ink With Legal']"));
-                                                             Thread.sleep(3000);
-                                                             KeywordsCoreFunctions.click(By.xpath("//a[text()='Submit']"));
-                                                             Thread.sleep(6000);
-                                                             KeywordsCoreFunctions.click(By.xpath("//a[text()='Signature Complete']"));
-                                                             Thread.sleep(10000);
-                                                             KeywordsCoreFunctions.click(By.xpath("//a[text()='Submit']"));
-                                                             Thread.sleep(6000);
-							                                 AddSCFDetailsUK1((By) elem, scf);
-	                                                            break;
-						 default:System.out.println("In default case");
-				                  break;
-						 }
-						 Thread.sleep(5000);
-						 Uploadfile((By) elem, filepath);
-						 Thread.sleep(10000);
-						 KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
-						 Thread.sleep(10000);
-						 KeywordsCoreFunctions.click(By.xpath("//a[contains(text(),'Case Item')]"));
-						 Thread.sleep(5000);
-						 switch(data)
-						 {
-						 case "Group Enterprise Legal Request": KeywordsCoreFunctions.click(By.xpath("//div[contains(text(),'SCF Created')][1]"));
-						                                        Thread.sleep(5000);
-						                                        KeywordsCoreFunctions.click(By.xpath("//a[text()='SCF Complete - Store Contract']"));
-						                                        Thread.sleep(5000);
-						                                        KeywordsCoreFunctions.click(By.xpath("//a[text()='Submit']"));
-						                                        ContractStoretoRepository((By) elem, comb2);
-						                                        break;
-						 
-						 case "UK Enterprise Legal Request": KeywordsCoreFunctions.click(By.xpath("//div[contains(text(),'Contract To Be Stored')][1]"));
-                                                             Thread.sleep(5000);
-                                                             ContractStoretoRepositoryUK((By) elem, comb2);
-	                                                         break;
-						 default:System.out.println("In default case");
-				                  break;
-						 }
-						 
-					 
-		}
+						 KeywordsCoreFunctions.click(By.xpath("//li/a[contains(text(),'Workspace')]"));
+						 WebdriverWait((By) elem, "//a[text()='GO']/preceding::input[1]");
+						 		}
+				wworkbook.write();
+		 		 wworkbook.close();		
 		}
 			catch(Exception e) 
 			{
@@ -1749,15 +1708,106 @@ driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Filepath4);
 		return true;
 	
 }
+ 
+ public static boolean RSMultipleTemplateBackDoor(By element,String data)
+    {
+		
+		try{
+			Workbook wrk1 =  Workbook.getWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\MultipleCasesRS.xls"));
+			 Sheet sheet1 = wrk1.getSheet(data);
+			 int rows=sheet1.getRows();
+			 Workbook wrk2 =  Workbook.getWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\CaseReferRS.xls"));
+			 Sheet sheet2 = wrk2.getSheet(data);
+			 WebElement elem = null;
+				for(int j=0;j<rows-1;j++)
+				{
+					String CaseRefer = sheet2.getCell(0, j+1).getContents().trim();
+					String scf = sheet1.getCell(1, j+1).getContents().trim();
+					String filepath = sheet1.getCell(3, j+1).getContents().trim();
+					String ReqTyp = sheet1.getCell(2, j+1).getContents().trim();
+					String RepAcc = sheet1.getCell(6, j+1).getContents().trim();
+					 String RepTemp = sheet1.getCell(7, j+1).getContents().trim();
+					 String ReferID = sheet1.getCell(8, j+1).getContents().trim();
+					String comb2 = (RepAcc+"__"+RepTemp+"__"+ReferID);
+			CaseCreated((By) elem, CaseRefer);
+			 Thread.sleep(10000);
+    KeywordsCoreFunctions.click(By.xpath("//a[text()='VIEW']"));
+	 Thread.sleep(10000);
+	 CaseContractLegal((By) elem, comb2);
+	 Thread.sleep(10000);
+	 switch(data)
+	 {
+	 case "Group Enterprise Legal Request":KeywordsCoreFunctions.click(By.xpath("//a[text()='Contract Fully Signed']"));
+	                                       Thread.sleep(3000);
+	                                       KeywordsCoreFunctions.click(By.xpath("//a[text()='Submit']"));
+	                                       Thread.sleep(10000); 
+		                                   AddSCFDetails1((By) elem, scf);
+	                                        break;
+	 
+	 case "UK Enterprise Legal Request": KeywordsCoreFunctions.click(By.xpath("//a[text()='In Signature - Wet Ink With Legal']"));
+                                        Thread.sleep(3000);
+                                        KeywordsCoreFunctions.click(By.xpath("//a[text()='Submit']"));
+                                        Thread.sleep(6000);
+                                        KeywordsCoreFunctions.click(By.xpath("//a[text()='Signature Complete']"));
+                                        Thread.sleep(10000);
+                                        KeywordsCoreFunctions.click(By.xpath("//a[text()='Submit']"));
+                                        Thread.sleep(6000);
+		                                 AddSCFDetailsUK1((By) elem, scf);
+                                           break;
+	 default:System.out.println("In default case");
+             break;
+	 }
+	 Thread.sleep(5000);
+	 Uploadfile((By) elem, filepath);
+	 Thread.sleep(10000);
+	 KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
+	 Thread.sleep(10000);
+	 KeywordsCoreFunctions.click(By.xpath("//a[contains(text(),'Case Item')]"));
+	 Thread.sleep(5000);
+	 switch(data)
+	 {
+	 case "Group Enterprise Legal Request": KeywordsCoreFunctions.click(By.xpath("//div[contains(text(),'SCF Created')][1]"));
+	                                        Thread.sleep(5000);
+	                                        KeywordsCoreFunctions.click(By.xpath("//a[text()='SCF Complete - Store Contract']"));
+	                                        Thread.sleep(5000);
+	                                        KeywordsCoreFunctions.click(By.xpath("//a[text()='Submit']"));
+	                                        ContractStoretoRepository((By) elem, comb2);
+	                                        break;
+	 
+	 case "UK Enterprise Legal Request": KeywordsCoreFunctions.click(By.xpath("//div[contains(text(),'Contract To Be Stored')][1]"));
+                                        Thread.sleep(5000);
+                                        ContractStoretoRepositoryUK((By) elem, comb2);
+                                        break;
+	 default:System.out.println("In default case");
+             break;
+	 }
+	 
+		}
+		}
+	 catch(Exception e) 
+		{
+	    e.printStackTrace();
+	    return false;
+		}
+	return true;
+
+} 
+
     
-    public static boolean USCMultipleTemplate(By element,String data)
+    public static boolean USCMultipleTemplateFrontDoor(By element,String data)
     {
 		
 		try{
 			
-			Workbook wrk1 =  Workbook.getWorkbook(new File("D:\\SWIFTCopy\\eTAP_V1.04\\MultipleCasesUSC.xls"));
+			Workbook wrk1 =  Workbook.getWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\MultipleCasesUSC.xls"));
 			 Sheet sheet1 = wrk1.getSheet(data);
 			 int rows=sheet1.getRows();
+			 WritableWorkbook wworkbook;
+			 wworkbook = Workbook.createWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\CaseReferUSC.xls"));
+			 WritableSheet wsheet = wworkbook.createSheet(data, 0);
+			 Label label = new Label(0, 0, "ReferID");
+			 wsheet.addCell(label);
+			 WebElement elem = null;
 				for(int j=0;j<rows-1;j++)
 				{
 					 String ShortRef = sheet1.getCell(0, j+1).getContents().trim();
@@ -1772,7 +1822,6 @@ driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Filepath4);
 					 String comb = (ShortRef+"__"+ReqTyp);
 					 String comb1 = (field+"__"+ShortRef);
 					 String comb2 = (RepAcc+"__"+RepTemp+"__"+ReferID);
-					 WebElement elem = null;
 					 Thread.sleep(10000);
 					 EnterComplaint((By) elem, comb);
 					 Thread.sleep(10000);
@@ -1796,32 +1845,15 @@ driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Filepath4);
 					 WebElement elem1 = driver.findElement(By.xpath(".//*[@id='MainContent_wsCards1_dlCards_divCaseNumber_0']"));
 					 String CasRefer=elem1.getText();
 				        System.out.println(CasRefer);
+				        Label label1 = new Label(0, 1+j, CasRefer);
+						 wsheet.addCell(label1);
 						 Thread.sleep(10000);
-						 KeywordsCoreFunctions.click(By.xpath("//a[text()='VIEW']"));
-						 Thread.sleep(10000);						 
-						 if(data.trim().equalsIgnoreCase("Group Enterprise Legal Request"))
-						 {
-						  CaseContractLegal((By) elem, comb);
-						  Thread.sleep(10000);
-						  AddSCFDetails1((By) elem, scf);
-				          Thread.sleep(5000);
-						  Uploadfile((By) elem, filepath);
-					      Thread.sleep(10000);
-					      KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
-						  Thread.sleep(10000);
-				          CaseCreated((By) elem, CasRefer);
-				          Thread.sleep(10000);
-				          KeywordsCoreFunctions.click(By.xpath("//a[contains(text(),'Case Item:')]"));
-				          WebdriverWait((By) elem, "//div[contains(text(),'Smart Contract Form')]");
-				          KeywordsCoreFunctions.click(By.xpath("//div[contains(text(),'Smart Contract Form')]"));
-						  WebdriverWait((By) elem, "//div/a[text()='SCF Complete - Store Contract']");
-						  KeywordsCoreFunctions.click(By.xpath("//div/a[text()='SCF Complete - Store Contract']"));
-						  Thread.sleep(10000);
-						  KeywordsCoreFunctions.click(By.xpath("//div/a[text()='Submit']"));
-						 }
-						 ContractStoretoRepositoryUK((By) elem, comb2); 
-					 
+						 KeywordsCoreFunctions.click(By.xpath("//li/a[contains(text(),'Workspace')]"));
+						 WebdriverWait((By) elem, "//a[text()='GO']/preceding::input[1]");
+						 Thread.sleep(10000);			 
 		}
+				wworkbook.write();
+		 		 wworkbook.close();	
 		}
 			catch(Exception e) 
 			{
@@ -1830,6 +1862,61 @@ driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Filepath4);
 			}
 		return true;
 	
+}
+public static boolean USCMultipleTemplateBackDoor(By element,String data)
+    {
+		
+		try{
+			Workbook wrk1 =  Workbook.getWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\MultipleCasesRS.xls"));
+			 Sheet sheet1 = wrk1.getSheet(data);
+			 int rows=sheet1.getRows();
+			 Workbook wrk2 =  Workbook.getWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\CaseReferUSC.xls"));
+			 Sheet sheet2 = wrk2.getSheet(data);
+			 WebElement elem = null;
+				for(int j=0;j<rows-1;j++)
+				{
+					String CaseRefer = sheet2.getCell(0, j+1).getContents().trim();
+					String scf = sheet1.getCell(1, j+1).getContents().trim();
+					String filepath = sheet1.getCell(3, j+1).getContents().trim();
+					String RepAcc = sheet1.getCell(6, j+1).getContents().trim();
+					 String RepTemp = sheet1.getCell(7, j+1).getContents().trim();
+					 String ReferID = sheet1.getCell(8, j+1).getContents().trim();
+					 String comb2 = (RepAcc+"__"+RepTemp+"__"+ReferID);
+			CaseCreated((By) elem, CaseRefer);
+			 Thread.sleep(10000);
+    KeywordsCoreFunctions.click(By.xpath("//a[text()='VIEW']"));
+	 Thread.sleep(10000);						 
+	 if(data.trim().equalsIgnoreCase("Group Enterprise Legal Request"))
+	 {
+	  CaseContractLegal((By) elem, comb2);
+	  Thread.sleep(10000);
+	  AddSCFDetails1((By) elem, scf);
+     Thread.sleep(5000);
+	  Uploadfile((By) elem, filepath);
+     Thread.sleep(10000);
+     KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
+	  Thread.sleep(10000);
+     CaseCreated((By) elem, CaseRefer);
+     Thread.sleep(10000);
+     KeywordsCoreFunctions.click(By.xpath("//a[contains(text(),'Case Item:')]"));
+     WebdriverWait((By) elem, "//div[contains(text(),'Smart Contract Form')]");
+     KeywordsCoreFunctions.click(By.xpath("//div[contains(text(),'Smart Contract Form')]"));
+	  WebdriverWait((By) elem, "//div/a[text()='SCF Complete - Store Contract']");
+	  KeywordsCoreFunctions.click(By.xpath("//div/a[text()='SCF Complete - Store Contract']"));
+	  Thread.sleep(10000);
+	  KeywordsCoreFunctions.click(By.xpath("//div/a[text()='Submit']"));
+	 }
+	 ContractStoretoRepositoryUK((By) elem, comb2); 
+
+}
+}
+catch(Exception e) 
+{
+e.printStackTrace();
+return false;
+}
+return true;
+
 }
     public static boolean SSUKMultipleTemplate(By element,String data)
     {
