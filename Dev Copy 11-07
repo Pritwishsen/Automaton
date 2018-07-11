@@ -2752,7 +2752,49 @@ return true;
     			    		
     					break;
     					
-    					case "TelephoneNumber":
+    					case "NameOfConsenter":
+    						try{
+    				    		if(KeywordsCoreFunctions.type(By.xpath("//div/div/span[contains(text(),'Name of Consenter')]/following::input[1]"), value));
+    				    		{
+    				    			System.out.println("if");
+    				    			WebElement PT= driver.findElement(By.xpath("//div/div/span[contains(text(),'Name of Consenter')]/following::input[1]"));
+    				    			
+    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT);
+    				    }
+    				    		
+    				    		
+    				    		}catch (Exception e)
+    				    		{
+    				    			System.out.println("Type Exception");
+    				    			WebElement PT1= driver.findElement(By.xpath("//div/div/span[contains(text(),'Name of Consenter')]/following::input[1]"));
+    				    			
+    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+    				    		}
+    			    		Thread.sleep(3000);
+    					break;
+    					
+    					case "DateOfEvent":
+    						try{
+    				    		if(KeywordsCoreFunctions.type(By.xpath("//div/div/span[contains(text(),'Date of Event')]/following::input[1]"), value));
+    				    		{
+    				    			System.out.println("if");
+    				    			WebElement PT= driver.findElement(By.xpath("//div/div/span[contains(text(),'Date of Event')]/following::input[1]"));
+    				    			
+    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT);
+    				    }
+    				    		
+    				    		
+    				    		}catch (Exception e)
+    				    		{
+    				    			System.out.println("Type Exception");
+    				    			WebElement PT1= driver.findElement(By.xpath("//div/div/span[contains(text(),'Date of Event')]/following::input[1]"));
+    				    			
+    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+    				    		}
+    			    		Thread.sleep(3000);
+                                        break;
+					
+					case "TelephoneNumber":
     						try{
     				    		if(KeywordsCoreFunctions.type(By.xpath("//div/span[contains(text(),'Telephone Number')]/following::input[1]"), value));
     				    		{
