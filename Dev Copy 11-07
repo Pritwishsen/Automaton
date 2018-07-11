@@ -2623,7 +2623,7 @@ return true;
     		
     		Workbook workbook = null;
     		
-    			workbook = Workbook.getWorkbook(new File("D:\\SWIFTCopy\\eTAP_V1.04\\Specifications.xls"));
+    			workbook = Workbook.getWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\Specifications.xls"));
     		
     		Sheet firstSheet = workbook.getSheet(0); 
     		Sheet secSheet = workbook.getSheet(1); 
@@ -2792,9 +2792,9 @@ return true;
     				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
     				    		}
     			    		Thread.sleep(3000);
-                                        break;
-					
-					case "TelephoneNumber":
+    					break;
+    					
+    					case "TelephoneNumber":
     						try{
     				    		if(KeywordsCoreFunctions.type(By.xpath("//div/span[contains(text(),'Telephone Number')]/following::input[1]"), value));
     				    		{
@@ -2942,68 +2942,63 @@ return true;
     					break;
     					
     					case "NumberOfWinners":
-    						try{
-    				    		if(KeywordsCoreFunctions.type(By.xpath("//div/span[contains(text(),'Number of Winners')]/following::input[1]"), value));
-    				    		{
-    				    			System.out.println("if");
-    				    			WebElement PT= driver.findElement(By.xpath("//div/span[contains(text(),'Number of Winners')]/following::input[1]"));
-    				    			
-    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT);
-    				    }
-    				    		
-    				    		
-    				    		}catch (Exception e)
-    				    		{
-    				    			System.out.println("Type Exception");
-    				    			WebElement PT1= driver.findElement(By.xpath("//div/span[contains(text(),'Number of Winners')]/following::input[1]"));
-    				    			
-    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
-    				    		}
+                             try{
+    							
+    							KeywordsCoreFunctions.click(By.xpath("//div/span[contains(text(),'Number of')]/following::input[1]"));
+    							WebElement PT1= driver.findElement(By.xpath("//div/span[contains(text(),'Number of')]/following::input[1]"));
+    							
+    							js.executeScript("arguments[0].scrollIntoView();", PT1);
+    							if(KeywordsCoreFunctions.type(By.xpath("//div/span[contains(text(),'Number of')]/following::input[1]"), value));
+    							{
+    								
+    								System.out.println("In IF");
+    								
+    						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+    					        }
+    							
+    							
+    							}catch (Exception e)
+    							{
+    								System.out.println(e);
+    								WebElement PT2= driver.findElement(By.xpath("//div/span[contains(text(),'Number of')]/following::input[1]"));
+    								
+    						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT2);
+    							}
     			    		Thread.sleep(3000);
     					break;
     					
     					case "HowWinnersSelected":
     						try{
-    				    		if(KeywordsCoreFunctions.type(By.xpath("//div/span[contains(text(),'How will the winners be selected?')]/following::textarea[1]"), value));
-    				    		{
-    				    			System.out.println("if");
-    				    			WebElement PT= driver.findElement(By.xpath("//div/span[contains(text(),'How will the winners be selected?')]/following::textarea[1]"));
-    				    			
-    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT);
-    				    }
-    				    		
-    				    		
-    				    		}catch (Exception e)
-    				    		{
-    				    			System.out.println("Type Exception");
-    				    			WebElement PT1= driver.findElement(By.xpath("//div/span[contains(text(),'How will the winners be selected?')]/following::textarea[1]"));
-    				    			
-    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
-    				    		}
+    							
+    							KeywordsCoreFunctions.click(By.xpath("//div/span[contains(text(),'How will the winners be selected?')]/following::textarea[1]"));
+    							WebElement PT1= driver.findElement(By.xpath("//div/span[contains(text(),'How will the winners be selected?')]/following::textarea[1]"));
+    							
+    							js.executeScript("arguments[0].scrollIntoView();", PT1);
+    							if(KeywordsCoreFunctions.type(By.xpath("//div/span[contains(text(),'How will the winners be selected?')]/following::textarea[1]"), value));
+    							{
+    								
+    								System.out.println("In IF");
+    								
+    						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+    					}
+    							
+    							
+    							}catch (Exception e)
+    							{
+    								System.out.println(e);
+    								WebElement PT2= driver.findElement(By.xpath("//div/span[contains(text(),'How will the winners be selected?')]/following::textarea[1]"));
+    								
+    						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT2);
+    							}
     			    		Thread.sleep(3000);
     					break;
     					
     					case "HowPrizesAwarded":
-    						try{
-    				    		if(KeywordsCoreFunctions.type(By.xpath("//div/span[contains(text(),'How will the prizes be awarded?')]/following::input[1]"), value));
-    				    		{
-    				    			System.out.println("if");
-    				    			WebElement PT= driver.findElement(By.xpath("//div/span[contains(text(),'How will the prizes be awarded?')]/following::input[1]"));
-    				    			
-    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT);
-    				    }
-    				    		
-    				    		
-    				    		}catch (Exception e)
-    				    		{
-    				    			System.out.println("Type Exception");
-    				    			WebElement PT1= driver.findElement(By.xpath("//div/span[contains(text(),'How will the prizes be awarded?')]/following::input[1]"));
-    				    			
-    				    	        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
-    				    		}
+    						KeywordsCoreFunctions.click(By.xpath("//div/span[contains(text(),'How will the prizes be awarded?')]/following::button[1]"));
     			    		Thread.sleep(3000);
-    					break;
-    					
+    			    		KeywordsCoreFunctions.click(By.xpath("//li[contains(text(),'"+value+"')]"));
+    						break;
+    						
     					case "HowGamePlayed":
     						try{
     				    		if(KeywordsCoreFunctions.type(By.xpath("//div/span[contains(text(),'How will the game be played?')]/following::textarea[1]"), value));
@@ -3046,18 +3041,107 @@ return true;
     			    		Thread.sleep(3000);
     					break;
     					
+    					case "PrizeDraw":
+                              try{
+    							
+    							KeywordsCoreFunctions.click(By.xpath("//div/div/span[contains(text(),'How will the prize draw be run?')]/following::textarea[1]"));
+    							WebElement PT1= driver.findElement(By.xpath("//div/div/span[contains(text(),'How will the prize draw be run?')]/following::textarea[1]"));
+    							
+    							js.executeScript("arguments[0].scrollIntoView();", PT1);
+    							if(KeywordsCoreFunctions.type(By.xpath("//div/div/span[contains(text(),'How will the prize draw be run?')]/following::textarea[1]"), value));
+    							{
+    								
+    								System.out.println("In IF");
+    								
+    						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+    					        }
+    							
+    							
+    							}catch (Exception e)
+    							{
+    								System.out.println(e);
+    								WebElement PT2= driver.findElement(By.xpath("//div/div/span[contains(text(),'How will the prize draw be run?')]/following::textarea[1]"));
+    								
+    						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT2);
+    							}    
+    			    		Thread.sleep(3000);
+    					break;
+    					
     					case "Name1":
-    						KeywordsCoreFunctions.type(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Name')]/following::input[1]"),value);
+    						 try{
+     							
+     							KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Name')]/following::input[1]"));
+     							WebElement PT1= driver.findElement(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Name')]/following::input[1]"));
+     							
+     							js.executeScript("arguments[0].scrollIntoView();", PT1);
+     							if(KeywordsCoreFunctions.type(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Name')]/following::input[1]"), value));
+     							{
+     								
+     								System.out.println("In IF");
+     								
+     						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+     					        }
+     							
+     							
+     							}catch (Exception e)
+     							{
+     								System.out.println(e);
+     								WebElement PT2= driver.findElement(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Name')]/following::input[1]"));
+     								
+     						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT2);
+     							} 
     			    		Thread.sleep(3000);
     					break;
     					
     					case "RoleTitle":
-    						KeywordsCoreFunctions.type(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Role Title')]/following::input[1]"),value);
+                              try{
+     							
+     							KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Role Title')]/following::input[1]"));
+     							WebElement PT1= driver.findElement(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Role Title')]/following::input[1]"));
+     							
+     							js.executeScript("arguments[0].scrollIntoView();", PT1);
+     							if(KeywordsCoreFunctions.type(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Role Title')]/following::input[1]"), value));
+     							{
+     								
+     								System.out.println("In IF");
+     								
+     						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+     					        }
+     							
+     							
+     							}catch (Exception e)
+     							{
+     								System.out.println(e);
+     								WebElement PT2= driver.findElement(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Role Title')]/following::input[1]"));
+     								
+     						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT2);
+     							}
     			    		Thread.sleep(3000);
     					break;
     					
     					case "EmailAddress":
-    						KeywordsCoreFunctions.type(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Email Address')]/following::input[1]"),value);
+                              try{
+     							
+     							KeywordsCoreFunctions.click(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Email Address')]/following::input[1]"));
+     							WebElement PT1= driver.findElement(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Email Address')]/following::input[1]"));
+     							
+     							js.executeScript("arguments[0].scrollIntoView();", PT1);
+     							if(KeywordsCoreFunctions.type(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Email Address')]/following::input[1]"), value));
+     							{
+     								
+     								System.out.println("In IF");
+     								
+     						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT1);
+     					        }
+     							
+     							
+     							}catch (Exception e)
+     							{
+     								System.out.println(e);
+     								WebElement PT2= driver.findElement(By.xpath("//span[contains(text(),'Vodafone Contact Details')]/following::div/span[contains(text(),'Email Address')]/following::input[1]"));
+     								
+     						        js.executeScript("arguments[0].setAttribute('value','"+value+"')", PT2);
+     							}
     			    		Thread.sleep(3000);
     					break;
     	                default:
@@ -3116,7 +3200,7 @@ return true;
     		
     	}
     		return true;
-    }
+}
     public static boolean FormDetails(By element,String data)
     {
     	//String CompalintDate = data.split("\\__")[0];
