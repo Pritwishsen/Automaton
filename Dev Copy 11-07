@@ -1863,7 +1863,7 @@ driver.findElement(By.xpath("//input[@type='file']")).sendKeys(Filepath4);
 		return true;
 	
 }
-public static boolean USCMultipleTemplateBackDoor(By element,String data)
+    public static boolean USCMultipleTemplateBackDoor(By element,String data)
     {
 		
 		try{
@@ -1924,7 +1924,7 @@ return true;
 		
 		try{
 			
-			Workbook wrk1 =  Workbook.getWorkbook(new File("D:\\SWIFTCopy\\eTAP_V1.04\\MultipleCasesSSUK.xls"));
+			Workbook wrk1 =  Workbook.getWorkbook(new File("D:\\SWIFT\\eTAP_V1.04\\MultipleCasesSSUK.xls"));
 			 Sheet sheet1 = wrk1.getSheet(data);
 			 int rows=sheet1.getRows();
 				for(int j=0;j<rows-1;j++)
@@ -1948,6 +1948,8 @@ return true;
 					 Thread.sleep(10000);
 					 switch(ReqTyp)
 					 {
+					 case "Prize Draw Ts & Cs":
+					 case "General Release Right Of Publicity Agreement":
 					 case "Game Challenge Ts & Cs":
 					 case "Consent for Case Study Agreement": ConsentReqNew((By) elem, ReqForm);
 //					 ValidateContractForm((By) elem, comb1);
@@ -1969,26 +1971,10 @@ return true;
 						  KeywordsCoreFunctions.click(By.xpath("//div/a[text()='Submit']"));
 						  Thread.sleep(10000);
 					                                        break;
-					 case "Game Challenge Ts & C": ConsentReqNew((By) elem, ReqForm);
-//					 ValidateContractForm((By) elem, comb1);
-					 Thread.sleep(10000);
-					 KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
-					 Thread.sleep(10000);
-					 CaseCreated((By) elem, ShortRef);
-					 Thread.sleep(10000);
-					 WebElement elem2 = driver.findElement(By.xpath(".//*[@id='MainContent_wsCards1_dlCards_divCaseNumber_0']"));
-					 String CasRefer1=elem2.getText();
-				        System.out.println(CasRefer1);
-						 Thread.sleep(10000);
-						 KeywordsCoreFunctions.click(By.xpath("//a[text()='VIEW']"));
-						 Thread.sleep(10000);
-						 WebdriverWait((By) elem, "//div/a[text()='Contract Issued']");
-				          KeywordsCoreFunctions.click(By.xpath("//div/a[text()='Contract Issued']"));
-				          Thread.sleep(10000);
-						  WebdriverWait((By) elem, "//div/a[text()='Submit']");
-						  KeywordsCoreFunctions.click(By.xpath("//div/a[text()='Submit']"));
-						  Thread.sleep(10000);
-					                                        break;
+					                                        
+					 case "Sponsorship Agreement":
+					 case "Vodafone Partner Agreement":
+					 case "One Net Partner Agreement":
 					 case "Vodafone Mutual NDA": VodafoneReqNew((By) elem, ReqForm);
 //					 ValidateContractForm((By) elem, comb1);
 					 KeywordsCoreFunctions.click(By.xpath("//input[@type='submit']"));
@@ -2078,7 +2064,7 @@ return true;
 		return true;
 	
 }
-    public static boolean GQMultipleTemplate(By element,String data)
+    public static boolean GQMultipleTemplateFrontDoor(By element,String data)
     {
 		
 		try{
